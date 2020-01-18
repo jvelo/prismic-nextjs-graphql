@@ -1,0 +1,44 @@
+{
+  "name": "nextjs-prismic-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jvelo/nextjs-prismic-graphql",
+  "author": "Jérôme Velociter",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "get-schema": "node scripts/get-schema.js",
+    "codegen": "graphql-let",
+    "update": "yarn get-schema && yarn codegen",
+    "dev": "yarn codegen && next",
+    "build": "yarn update && next build",
+    "start": "next start",
+    "validate-typescript": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@apollo/react-common": "^3.1.3",
+    "@apollo/react-components": "^3.1.3",
+    "@apollo/react-hooks": "^3.1.3",
+    "@apollo/react-ssr": "^3.1.3",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.2.0",
+    "prismic-javascript": "^2.1.5",
+    "prismic-reactjs": "^1.2.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/typescript": "^1.11.2",
+    "@graphql-codegen/typescript-operations": "^1.11.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.11.2",
+    "@types/node": "^13.1.8",
+    "@types/react": "^16.9.17",
+    "dotenv": "^8.2.0",
+    "graphql-let": "^0.5.1",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.5"
+  }
+}

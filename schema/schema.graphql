@@ -1,0 +1,305 @@
+"""
+A prismic document
+"""
+interface _Document {
+  _meta: Meta!
+}
+
+"""
+A connection to a list of items.
+"""
+type _DocumentConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [_DocumentEdge]
+  totalCount: Long!
+}
+
+"""
+An edge in a connection.
+"""
+type _DocumentEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: _Document!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+An external link
+"""
+type _ExternalLink implements _Linkable {
+  url: String!
+  _linkType: String
+}
+
+"""
+A linked file
+"""
+type _FileLink implements _Linkable {
+  name: String!
+  url: String!
+  size: Long!
+  _linkType: String
+}
+
+"""
+A linked image
+"""
+type _ImageLink implements _Linkable {
+  name: String!
+  url: String!
+  size: Long!
+  height: Int!
+  width: Int!
+  _linkType: String
+}
+
+"""
+A prismic link
+"""
+interface _Linkable {
+  _linkType: String
+}
+
+"""
+DateTime
+"""
+scalar DateTime
+
+"""
+Raw JSON value
+"""
+scalar Json
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Meta {
+  """
+  The id of the document.
+  """
+  id: String!
+
+  """
+  The uid of the document.
+  """
+  uid: String
+
+  """
+  The type of the document.
+  """
+  type: String!
+
+  """
+  The tags of the document.
+  """
+  tags: [String!]!
+
+  """
+  The language of the document.
+  """
+  lang: String!
+
+  """
+  Alternate languages the document.
+  """
+  alternateLanguages: [RelatedDocument!]!
+
+  """
+  The first publication date of the document.
+  """
+  firstPublicationDate: DateTime
+
+  """
+  The last publication date of the document.
+  """
+  lastPublicationDate: DateTime
+}
+
+type Page implements _Document & _Linkable {
+  title: Json
+  content: Json
+  _meta: Meta!
+  _linkType: String
+}
+
+"""
+A connection to a list of items.
+"""
+type PageConnectionConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [PageConnectionEdge]
+  totalCount: Long!
+}
+
+"""
+An edge in a connection.
+"""
+type PageConnectionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Page!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type Query {
+  _allDocuments(
+    sortBy: SortDocumentsBy
+    id: String
+    id_in: [String!]
+    uid: String
+    uid_in: [String!]
+    lang: String
+    tags: [String!]
+    tags_in: [String!]
+    type: String
+    type_in: [String!]
+    firstPublicationDate: DateTime
+    firstPublicationDate_after: DateTime
+    firstPublicationDate_before: DateTime
+    lastPublicationDate: DateTime
+    lastPublicationDate_after: DateTime
+    lastPublicationDate_before: DateTime
+    fulltext: String
+    similar: similar
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): _DocumentConnection!
+  page(uid: String!, lang: String!): Page
+  allPages(
+    sortBy: SortPagey
+    id: String
+    id_in: [String!]
+    uid: String
+    uid_in: [String!]
+    lang: String
+    tags: [String!]
+    tags_in: [String!]
+    type: String
+    type_in: [String!]
+    firstPublicationDate: DateTime
+    firstPublicationDate_after: DateTime
+    firstPublicationDate_before: DateTime
+    lastPublicationDate: DateTime
+    lastPublicationDate_after: DateTime
+    lastPublicationDate_before: DateTime
+    fulltext: String
+    similar: similar
+    where: WherePage
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PageConnectionConnection!
+}
+
+type RelatedDocument {
+  """
+  The id of the document.
+  """
+  id: String!
+
+  """
+  The uid of the document.
+  """
+  uid: String
+
+  """
+  The type of the document.
+  """
+  type: String!
+
+  """
+  The language of the document.
+  """
+  lang: String!
+}
+
+input similar {
+  documentId: String!
+  max: Int!
+}
+
+enum SortDocumentsBy {
+  meta_firstPublicationDate_ASC
+  meta_firstPublicationDate_DESC
+  meta_lastPublicationDate_ASC
+  meta_lastPublicationDate_DESC
+}
+
+enum SortPagey {
+  meta_firstPublicationDate_ASC
+  meta_firstPublicationDate_DESC
+  meta_lastPublicationDate_ASC
+  meta_lastPublicationDate_DESC
+  title_ASC
+  title_DESC
+  content_ASC
+  content_DESC
+}
+
+input WherePage {
+  """
+  title
+  """
+  title_fulltext: String
+
+  """
+  content
+  """
+  content_fulltext: String
+}

@@ -1,0 +1,6 @@
+query page($slug: String!) {
+    page(uid: $slug, lang: "en-gb") {
+        title
+        content
+    }
+}
