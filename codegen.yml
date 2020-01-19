@@ -1,0 +1,13 @@
+schema: schema/schema.graphql
+
+generates:
+  ./src/__generated__/introspection-result.ts:
+    plugins:
+      - fragment-matcher
+  ./src/@types/graphql-schema.d.ts:
+    plugins:
+      - typescript
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write
