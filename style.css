@@ -29,7 +29,8 @@ h1 {
   font-size: 56px;
 }
 
-a {
+a,
+a:visited {
   text-decoration: none;
   position: relative;
   font-weight: 900;
