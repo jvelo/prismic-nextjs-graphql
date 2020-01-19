@@ -1,8 +1,8 @@
 import "../style.css";
-import { Container } from "next/app";
 import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import Loading from "../components/Loading";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }) {
   const [isRouteChanging, setRouteChanging] = useState(false);
@@ -32,10 +32,17 @@ function MyApp({ Component, pageProps }) {
   });
 
   return (
-    <Container>
+    <>
+      <Head>
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
+        </style>
+      </Head>
+
       <Loading isRouteChanging={isRouteChanging} loadingKey={loadingKey} />
       <Component {...pageProps} />
-    </Container>
+    </>
   );
 }
 

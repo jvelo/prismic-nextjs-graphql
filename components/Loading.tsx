@@ -18,8 +18,8 @@ const Loading: React.FC<Props> = ({ isRouteChanging, loadingKey }) => (
       >
         <div
           style={{
-            background: "#29d",
-            height: 5,
+            background: "#5E0388",
+            height: 10,
             left: 0,
             marginLeft: `${(-1 + progress) * 100}%`,
             position: "fixed",
