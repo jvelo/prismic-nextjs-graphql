@@ -1,7 +1,9 @@
 {
   "version": 2,
   "name": "prismic-nextjs-graphql",
-  "env": {
-    "PRISMIC_REPOSITORY": "nextjs-prismic-graphql"
+  "build": {
+    "env": {
+      "PRISMIC_REPOSITORY": "nextjs-prismic-graphql"
+    }
   }
 }
